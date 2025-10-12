@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35506.116 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodStore.Web", "src\FoodStore.Web\FoodStore.Web.csproj", "{990A434C-5A7C-4300-A0E8-48C0F9F9BC48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodStore", "src\FoodStore\FoodStore.csproj", "{30C5FF48-D0DD-4643-BB3A-ED7885229876}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{81041762-B872-4906-8376-2C2A6F073CA9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{990A434C-5A7C-4300-A0E8-48C0F9F9BC48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{990A434C-5A7C-4300-A0E8-48C0F9F9BC48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{990A434C-5A7C-4300-A0E8-48C0F9F9BC48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{990A434C-5A7C-4300-A0E8-48C0F9F9BC48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30C5FF48-D0DD-4643-BB3A-ED7885229876}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30C5FF48-D0DD-4643-BB3A-ED7885229876}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30C5FF48-D0DD-4643-BB3A-ED7885229876}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30C5FF48-D0DD-4643-BB3A-ED7885229876}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{990A434C-5A7C-4300-A0E8-48C0F9F9BC48} = {81041762-B872-4906-8376-2C2A6F073CA9}
+		{30C5FF48-D0DD-4643-BB3A-ED7885229876} = {81041762-B872-4906-8376-2C2A6F073CA9}
+	EndGlobalSection
+EndGlobal
