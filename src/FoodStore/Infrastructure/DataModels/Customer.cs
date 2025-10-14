@@ -10,11 +10,8 @@ namespace FoodStore.Infrastructure.DataModels;
 public class Customer
 {
     public int Id { get; set; }
-    // Foreign Key
-    public int OrderId { get; set; }
-
     // Navigation Property
-    public ICollection<Order> ? Order { get; set; }
+    public ICollection<Order> ? Orders { get; set; }
 
     public required string FirstName { get; set; }
     public required string LastName { get; set; }

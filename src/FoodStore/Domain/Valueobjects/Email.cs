@@ -14,7 +14,7 @@ public class Email : ValueObject
 {
     [Column("Email")]
     [MaxLength(50)]
-    public string Value { get; private set; }
+    public string Value { get; init; }
     public Email(string value)
     {
         if (string.IsNullOrEmpty(value))
@@ -24,6 +24,7 @@ public class Email : ValueObject
 
         Value = value;
     }
+    private Email() { }
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

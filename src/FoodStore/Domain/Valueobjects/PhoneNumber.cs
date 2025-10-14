@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace FoodStore.Domain.Valueobjects;
 public class PhoneNumber :  ValueObject
 {
     [Column("PhoneNumber")]
-    public string Value { get; private set; }
+    public string Value { get; init; }
     public PhoneNumber(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
@@ -25,6 +26,7 @@ public class PhoneNumber :  ValueObject
 
         Value = value;
     }
+    private PhoneNumber() { } // EF Core requires a parameterless constructor
     public static bool IsValid(string value)
     {
         // Accepts +CountryCode and 10–15 digits

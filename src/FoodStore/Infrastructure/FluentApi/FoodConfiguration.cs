@@ -18,7 +18,7 @@ public class FoodConfiguration : IEntityTypeConfiguration<Food>
         builder.Property(x => x.Description).HasMaxLength(300);
         builder.OwnsOne(x => x.Price, money =>
         {
-            money.Property(x => x.Amount).HasColumnName("Price");
+            money.Property(x => x.Amount).HasColumnName("Price").HasPrecision(18, 2).IsRequired();
 
             money.Ignore(m => m.Currency);
         });

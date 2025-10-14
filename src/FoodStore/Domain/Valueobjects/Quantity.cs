@@ -11,7 +11,7 @@ namespace FoodStore.Domain.Valueobjects;
 public class Quantity : ValueObject
 {
     [Column("Quantity")]
-    public int Value { get; }
+    public int Value { get; init; }
 
     public Quantity(int value)
     {
@@ -22,6 +22,7 @@ public class Quantity : ValueObject
 
         Value = value;
     }
+    private Quantity() { } // EF Core requires a parameterless constructor
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

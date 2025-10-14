@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,9 @@ namespace FoodStore.Domain.Valueobjects;
 
 public class Money : ValueObject
 {
-    public decimal Amount { get; }
-    public string Currency { get; }
+    public decimal Amount { get; init; }
+    [MaxLength(10)]
+    public string Currency { get; init; }
     public Money(decimal amount, string currency = "USD")
     {
         if (amount < 0)
@@ -17,6 +19,7 @@ public class Money : ValueObject
         Amount = amount;
         Currency = currency;
     }
+    private Money() { } // EF Core needs a parameterless constructor
     public static Money operator +(Money a, Money b)
     {
         if (a.Currency != b.Currency)

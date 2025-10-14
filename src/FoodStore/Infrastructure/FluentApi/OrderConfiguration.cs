@@ -16,11 +16,11 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.OrderDate).HasColumnType("date");
         builder.HasMany(x => x.OrderItems).WithOne(x => x.Order);
-        builder.HasOne(x => x.Customer).WithMany(x => x.Order);
+        builder.HasOne(x => x.Customer).WithMany(x => x.Orders).HasForeignKey(x => x.CustomerId).OnDelete(DeleteBehavior.Restrict);
         builder.OwnsOne(x => x.TotalAmount, money =>
         {
-            money.Property(m => m.Amount).HasColumnName("TotalAmount");
-            money.Property(m => m.Currency).HasColumnName("Currency");
+            money.Property(m => m.Amount).HasColumnName("TotalAmount").HasPrecision(18, 2).IsRequired();
+            money.Property(m => m.Currency).HasColumnName("Currency").IsRequired();
         });
     }
 }
