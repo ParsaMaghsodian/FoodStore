@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ErrorOr;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,22 +10,26 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace FoodStore.Domain.Valueobjects;
+
 [ComplexType]
 public class Email : ValueObject
 {
     [Column("Email")]
     [MaxLength(50)]
     public string Value { get; init; }
-    public Email(string value)
+    private Email(string value)
     {
-        if (string.IsNullOrEmpty(value))
-            throw new ArgumentNullException(nameof(value), "Email cannot be null or empty.");
-        if (!IsValidEmail(value))
-            throw new ArgumentException(nameof(value), "Invalid Email format");
-
         Value = value;
     }
     private Email() { }
+    public static ErrorOr<Email> Create(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+            return Error.Validation("Email.NullOrEmpty", "Email address can not be null or empty");
+        if (!IsValidEmail(value))
+            return Error.Validation("Email.InvalidFormat", "Email address is not in a valid state");
+        return new Email(value);
+    }
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

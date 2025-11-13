@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ErrorOr;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,20 +14,25 @@ public class PhoneNumber :  ValueObject
 {
     [Column("PhoneNumber")]
     public string Value { get; init; }
-    public PhoneNumber(string value)
+    private PhoneNumber(string value)
     {
-        if (string.IsNullOrWhiteSpace(value))
-            throw new ArgumentException("Phone number cannot be empty.");
-
-        // Normalize: remove spaces and dashes
-        value = value.Replace(" ", "").Replace("-", "");
-
-        if (!IsValid(value))
-            throw new ArgumentException("Invalid phone number format.");
-
         Value = value;
     }
     private PhoneNumber() { } // EF Core requires a parameterless constructor
+
+    public static ErrorOr<PhoneNumber> Create(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return Error.Validation("PhoneNumber.Empty", "Phone number cannot be empty.");
+
+        // Normalize
+        value = value.Replace(" ", "").Replace("-", "");
+
+        if (!IsValid(value))
+            return Error.Validation("PhoneNumber.Invalid", "Invalid phone number format. It must contain 10–15 digits and optionally a + sign.");
+
+        return new PhoneNumber(value);
+    }
     public static bool IsValid(string value)
     {
         // Accepts +CountryCode and 10–15 digits
