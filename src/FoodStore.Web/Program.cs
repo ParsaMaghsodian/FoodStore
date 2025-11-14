@@ -1,8 +1,10 @@
 using FluentValidation;
+using FoodStore.Application.Behaviors;
 using FoodStore.Application.Foods.Commands;
 using FoodStore.Application.Services;
 using FoodStore.Infrastructure;
 using FoodStore.Infrastructure.DataModels;
+using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,6 +23,7 @@ builder.Services.AddMediatR(options =>
 });
 builder.Services.AddValidatorsFromAssemblyContaining<CreateFood.CreateFoodCommandValidator>();
 builder.Services.AddScoped<IFoodService, FoodService>();
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavior<,>));
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
