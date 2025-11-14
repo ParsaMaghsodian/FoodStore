@@ -7,6 +7,7 @@ using FoodStore.Infrastructure.DataModels;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,12 @@ builder.Services.AddMediatR(options =>
 builder.Services.AddValidatorsFromAssemblyContaining<CreateFood.CreateFoodCommandValidator>();
 builder.Services.AddScoped<IFoodService, FoodService>();
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavior<,>));
+
+builder.Host.UseSerilog((context, services, configuration) =>
+configuration.ReadFrom.Configuration(context.Configuration) // Read Serilog config from appsettings.json
+.ReadFrom.Services(services) // enables dependency injection inside Serilog
+.Enrich.FromLogContext()   // add extra contextual information
+);
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -35,7 +42,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+// Serilog request logging middleware
+app.UseSerilogRequestLogging();
 app.UseRouting();
 
 app.UseAuthorization();
